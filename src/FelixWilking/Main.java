@@ -3,7 +3,7 @@ package FelixWilking;
 public class Main {
 
     public static void main(String[] args) {
-        int size = 1000;
+        int size = 10;
         getAverage(size, 0);
         getAverage(size, 1);
         getAverage(size, 2);
@@ -13,21 +13,30 @@ public class Main {
     public static void getAverage(int size, int sortID){
         int[] arr = randIntArr(size, size);
         double average = 0;
-        for(int i = 0; i < 10; i++){
-            long time = System.nanoTime();
+        int repetitions = 100000;
+        for(int i = 0; i < repetitions; i++){
             if(sortID == 0) {
+                long time = System.nanoTime();
                 insertionSort(arr);
+                time = System.nanoTime() - time;
+                average += time;
+
             }
             else if(sortID == 1){
+                long time = System.nanoTime();
                 selectionSort(arr);
+                time = System.nanoTime() - time;
+                average += time;
+
             }
             else if(sortID == 2){
+                long time = System.nanoTime();
                 bubbleSort(arr);
+                time = System.nanoTime() - time;
+                average += time;
             }
-            time = System.nanoTime() - time;
-            average += time;
-            average = average / 5;
         }
+        average = (int) average / repetitions;
         System.out.println(average);
     }
 
